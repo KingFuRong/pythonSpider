@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "crypto-js": "^4.2.0",
+    "jsencrypt": "^3.3.2",
+    "jsrsasign": "^11.1.0",
+    "node-jsencrypt": "^1.0.0"
+  }
+}

@@ -1,0 +1,14 @@
+"use strict";
+// Instantiate WebAssembly module
+var wasmExports = __webpack_require__.w[module.i];
+__webpack_require__.r(exports);
+// export exports from WebAssembly module
+for(var name in wasmExports) if(name != "__webpack_init__") exports[name] = wasmExports[name];
+// exec imports from WebAssembly module (for esm order)
+/* harmony import */ var m0 = __webpack_require__(/*! ./index_bg.js */ "./pkg/index_bg.js");
+
+
+// exec wasm module
+wasmExports["__webpack_init__"]()
+
+//# sourceURL=webpack:///./pkg/index_bg.wasm?
