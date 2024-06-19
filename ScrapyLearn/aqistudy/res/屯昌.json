@@ -1,0 +1,32 @@
+{
+    "success": true,
+    "errcode": 0,
+    "errmsg": "success",
+    "result": {
+        "success": true,
+        "data": {
+            "level": {
+                "level1": 0,
+                "level2": 0,
+                "level3": 0,
+                "level4": 0,
+                "level5": 0,
+                "level6": 0
+            },
+            "items": [],
+            "datas": [],
+            "datas_min": [],
+            "datas_max": [],
+            "max": 0,
+            "min": 600,
+            "avg": 0,
+            "num": 0,
+            "datas1": [],
+            "datas2": [],
+            "datas3": [],
+            "datas4": [],
+            "datas5": [],
+            "datas6": []
+        }
+    }
+}
