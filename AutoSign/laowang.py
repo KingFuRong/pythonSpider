@@ -1,3 +1,4 @@
+import hashlib
 import json
 import re
 from io import BytesIO
@@ -5,6 +6,10 @@ from io import BytesIO
 import requests
 
 from Utils.tools import *
+
+USERNAME = ''
+PASSWORD = ''
+PASSWORD = hashlib.md5(PASSWORD.encode(encoding='utf-8')).hexdigest()
 
 session = requests.Session()
 session.cookies.clear()
@@ -79,8 +84,8 @@ def login():
     login_data = {
         "formhash": form_hash,
         "referer": "https://laowang.vip/forum.php",
-        "username": "ScorpioSR",
-        "password": "61dd9902e2a0692566c87006d2d682ee",
+        "username": USERNAME,
+        "password": PASSWORD,
         "questionid": "0",
         "answer": "",
         "cookietime": "2592000",
@@ -97,7 +102,7 @@ def check_login_status():
         cookies = json.loads(f.read())
     session.cookies.update(cookies)
     login_status = session.get('https://laowang.vip/forum.php').text
-    if login_status.find('ScorpioSR') != -1:
+    if login_status.find(USERNAME) != -1:
         pass
     else:
         login()
