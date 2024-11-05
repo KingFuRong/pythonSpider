@@ -49,8 +49,8 @@ def real_token_4_9_1(fp, api_appid):
         "ls": "zh-CN",
         "ml": 2,
         "pl": 5,
-        "av": "5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
-        "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+        "av": "5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+        "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
         "sua": "Macintosh; Intel Mac OS X 10_15_7",
         "pp": {},
         "extend": {
@@ -60,10 +60,10 @@ def real_token_4_9_1(fp, api_appid):
             "wk": 0,
             "bu1": "0.1.9",
             "bu2": 0,
-            "bu3": 75,
+            "bu3": 84,
             "bu4": 0,
             "bu5": 0,
-            "bu6": 31,
+            "bu6": 33,
             "bu7": "",
             "bu8": 0
         },
@@ -73,19 +73,19 @@ def real_token_4_9_1(fp, api_appid):
         "h": 900,
         "ow": 1440,
         "oh": 808,
-        "url": 'https://item.jd.com/100105177369.html',
-        "og": 'https://item.jd.com',
+        # "url": "https://item.jd.com/10093730161484.html",
+        "og": "https://item.jd.com",
         "pf": "MacIntel",
         "pr": 2,
         "re": "https://www.jd.com/",
-        "random": ''.join(random.choice(string.ascii_letters + '_-') for _ in range(11)),
+        "random": ''.join(random.choice(string.digits + string.ascii_letters) for _ in range(12)),
         "referer": "https://www.jd.com/",
-        "v": "h5_file_v4.8.1",
+        "v": "h5_file_v4.9.1",
         "bu2": "    at r (https://h5static.m.jd.com/act/jd-jssdk/latest/jd-jssdk.min.js:1:93837)",
-        "canvas": "8ed4464d02c680d9290f4da1d59154b0",
-        "canvas1": "8ed4464d02c680d9290f4da1d59154b0",
-        "webglFp": "",
-        "webglFp1": "63e81c90ebaeb6ef7f30f966f5ad027c",
+        "canvas": "fa3fabf83a3dc96ca518dcdec635e8d9",
+        "canvas1": "fa3fabf83a3dc96ca518dcdec635e8d9",
+        "webglFp": "1bfa6f36ccdc1044daf310b6628e7575",
+        "webglFp1": "1bfa6f36ccdc1044daf310b6628e7575",
         "ccn": 8,
         "ai": api_appid,
         "fp": fp
@@ -166,9 +166,7 @@ def h5st_4_9_1(param_group, body, request_time, salt="x38rG0"):
     fp = finger_print_4_9_1()
     environment_dict = {
         "sua": "Macintosh; Intel Mac OS X 10_15_7",
-        "pp": {
-            "p2": ""
-        },
+        "pp": {},
         "extend": {
             "wd": 0,
             "l": 0,
@@ -176,7 +174,7 @@ def h5st_4_9_1(param_group, body, request_time, salt="x38rG0"):
             "wk": 0,
             "bu1": "0.1.9",
             "bu2": -1,
-            "bu3": 97,
+            "bu3": 89,
             "bu4": 0,
             "bu5": 0,
             "bu6": 41,
@@ -184,10 +182,10 @@ def h5st_4_9_1(param_group, body, request_time, salt="x38rG0"):
             "bu8": 0
         },
         "pf": "MacIntel",
-        "random": "uP32SPogfmax",
+        "random": ''.join(random.choice(string.digits + string.ascii_letters) for _ in range(12)),
         "v": "h5_file_v4.9.1",
-        "canvas": "8ed4464d02c680d9290f4da1d59154b0",
-        "webglFp": "63e81c90ebaeb6ef7f30f966f5ad027c",
+        "canvas": "fa3fabf83a3dc96ca518dcdec635e8d9",
+        "webglFp": "1bfa6f36ccdc1044daf310b6628e7575",
         "ccn": 8,
         "fp": fp,
         "bu1": "0.1.8"
@@ -206,7 +204,7 @@ def h5st_4_9_1(param_group, body, request_time, salt="x38rG0"):
     enc_part_two = hashlib.new('md5', part_two.encode('latin1')).hexdigest()
     enc_part_two = ''.join([enc_part_two[i] + enc_part_two[i + 1] for i in range(0, 12, 2)][::-1]) + enc_part_two[12::]
 
-    part_three = f'{part_two}appid:{appid}&body:{body}&client:{client}&clientVersion:{client_version}&functionId:{function_id}&t:{request_time}{enc_part_two}{salt}'
+    part_three = f'{enc_part_one}appid:{appid}&functionId:{function_id}{enc_part_one}{salt}'
     enc_part_three = hashlib.new('md5', part_three.encode('latin1')).hexdigest()
     enc_part_three = ''.join([enc_part_three[i] + enc_part_three[i + 1] for i in range(0, 12, 2)][::-1]) + enc_part_three[12::]
 
@@ -218,8 +216,42 @@ param_group = {
     'client': 'pc',
     'client_version': '1.0.0',
     'function_id': 'pc_club_productPageComments',
-    "url": "https://item.jd.com/100105177369.html",
-    "og": "https://item.jd.com",
+    # "url": "https://item.jd.com/100141313268.html",
+    # "og": "https://item.jd.com",
 }
-body = {"productId":100012529857,"score":0,"sortType":5,"page":2,"pageSize":10,"isShadowSku":0,"rid":0,"fold":1,"bbtf":"","shield":""}
-h5st = h5st_4_9_1(param_group, body, int(time.time()*1000))
+body = {"productId":100141313268,"score":0,"sortType":5,"page":6,"pageSize":10,"isShadowSku":0,"rid":0,"fold":1,"bbtf":"","shield":""}
+
+times = int(time.time() * 1000)
+h5st = h5st_4_9_1(param_group, body, times)
+print(h5st_4_9_1(param_group, body, times))
+
+headers = {
+    "accept": "*/*",
+    "accept-language": "zh-CN,zh;q=0.9",
+    "access-control-request-headers": "content-type,x-referer-page,x-rp-client",
+    "access-control-request-method": "GET",
+    "cache-control": "no-cache",
+    "origin": "https://item.jd.com",
+    "pragma": "no-cache",
+    "priority": "u=1, i",
+    "referer": "https://item.jd.com/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+}
+url = "https://api.m.jd.com/"
+params = {
+    "appid": "item-v3",
+    "functionId": "pc_club_productPageComments",
+    "client": "pc",
+    "clientVersion": "1.0.0",
+    "t": times,
+    "body": json.dumps(body, ensure_ascii=False, separators=(',', ":")),
+    "h5st": h5st,
+}
+# response = requests.get(url, headers=headers, params=params, cookies=cookies)
+response = requests.get(url, headers=headers, params=params)
+
+print(response.text)
+print(response)
