@@ -1,3 +1,5 @@
+const {JSDOM} = require("jsdom");
+
 var window = global;
 window['window'] = window;
 window.bmak = {
@@ -7,6 +9,7 @@ var Bq = [4095, 1, 0, 63, 8, 255, 127, 39, 65793, 4294967295, 4282663, 65535, 83
 var cxI = "";
 var MP = "";
 var vH = new (window['Array'])(Bq[6]);
+var dQI = false;
 
 function YC(jZI, f6I) {
     return jZI < f6I;
@@ -66,6 +69,103 @@ function xz(Ms, jz) {
 
 function Bj() {
     return window["Math"]["floor"](window["Math"]["random"]() * 100000 + 10000);
+}
+
+function qZ(jK) {
+    if (jK == null)
+        return -1;
+    try {
+        var VZ = 0;
+        for (var jB = 0; jB < jK["length"]; jB++) {
+            var r8 = jK["charCodeAt"](jB);
+            if (r8 < 128) {
+                VZ = VZ + r8;
+            }
+        }
+        return VZ;
+    } catch (dp) {
+        return -2;
+    }
+}
+
+function z6(UAI, RwI) {
+    return UAI == RwI;
+}
+
+function Ph(m2I) {
+    var p6I = ['text', 'search', 'url', 'email', 'tel', 'number'];
+    m2I = m2I["toLowerCase"]();
+    if (p6I["indexOf"](m2I) !== -1)
+        return 0;
+    else if (m2I === 'password')
+        return 1;
+    else
+        return 2;
+}
+
+function wdI(input_tags) {
+    // if (Dj(dQI)) {
+    //     try {
+    //         var SEI = ws.length;
+    //         var TD = Dj([]);
+    //         YXI = NK(YXI, BH()[vP(UC)](rf, hH, p7, Dj(Dj([])), N3, xg));
+    //         var mQI = KX[z5()[Cl(T6)](mN, J2)][dXI()[MdI(MK)](I0, p7, Wb)](RY()[PA(Ug)].call(null, tp, qW, Dj(x0), Vz));
+    //         if (O3(mQI[dXI()[MdI(vl)](Zf, JV, CM)], undefined)) {
+    //             YXI = NK(YXI, RY()[PA(N3)].call(null, jU, lz, bP, pw));
+    //             jII = KX[O3(typeof vA()[ng(Lg)], NK('', [][[]])) ? vA()[ng(Gs)](N5, T0) : vA()[ng(KK)].apply(null, [gB, Mz])][vA()[ng(tr)](f8, cz)](sdI(jII, KK));
+    //         } else {
+    //             YXI = NK(YXI, k2()[OW(gJ)].apply(null, [Gp, AL, Rq, q5, bH, p7]));
+    //             jII = KX[vA()[ng(Gs)].call(null, N5, T0)][vA()[ng(tr)].call(null, f8, cz)](sdI(jII, vG[dXI()[MdI(XY)].call(null, rr, MC, J2)]()));
+    //         }
+    //     } catch (YdI) {
+    //         ws.splice(OV(SEI, p7), Infinity, DZ);
+    //         YXI = NK(YXI, z5()[Cl(TJ)](dJ, Pj));
+    //         jII = KX[vA()[ng(Gs)](N5, T0)][vA()[ng(tr)](f8, cz)](sdI(jII, Bq[gJ]));
+    //     }
+    //     dQI = Dj(Z4);
+    // }
+    input_tags = '<html><body>' + input_tags.join('') + '</body></html>';
+    var dom = new JSDOM(input_tags);
+
+    var YSI = '';
+    var ccI = BY(1);
+    var tdI = dom.window['document']['getElementsByTagName']("input");
+    for (var FD = 0; YC(FD, tdI['length']); FD++) {
+        var FXI = tdI[FD];
+        var U4I = qZ(FXI['getAttribute']('name'));
+        var KkI = qZ(FXI['getAttribute']('id'));
+        var A4I = FXI['getAttribute']('required');
+        var f1I = z6(A4I, null) ? 0 : 1;
+        var N9I = FXI['getAttribute']('type');
+        var xdI = z6(N9I, null) ? BY(1) : Ph(N9I);
+        var mGI = FXI['getAttribute']('autocomplete');
+        if (z6(mGI, null))
+            ccI = BY(1);
+        else {
+            mGI = mGI['toLowerCase']();
+            if (Dp(mGI, 'off'))
+                ccI = 0;
+            else if (Dp(mGI, 'on'))
+                ccI = 1;
+            else
+                ccI = 2;
+        }
+        var q9I = FXI['defaultValue'];
+        var W4I = FXI['value'];
+        var GEI = 0;
+        var T1I = 0;
+        if (q9I && O3(q9I['length'], 0)) {
+            T1I = 1;
+        }
+        if (W4I && O3(W4I['length'], 0) && (Dj(T1I) || O3(W4I, q9I))) {
+            GEI = 1;
+        }
+        if (O3(xdI, 2)) {
+            YSI = ''['concat'](NK(YSI, xdI), ',')['concat'](ccI, ',')['concat'](GEI, ',')['concat'](f1I, ',')['concat'](KkI, ',')['concat'](U4I, ',')['concat'](T1I, ';');
+        }
+    }
+    var QmI;
+    return QmI = YSI, QmI;
 }
 
 function k6(RAI) {
@@ -284,9 +384,17 @@ function NKI(F7I) {
     return tKI = C6I, tKI;
 }
 
-function Akamai_cookie(bm_sz) {
-    var kkI = Ut()
+function Akamai_cookie(bm_sz, input_tags, url) {
+    var kkI = Ut();
     var BRI = OV(Ut(), window['window'].bmak['startTs']);
+    var HRI = "do_en";
+    var TEI = "dm_en";
+    var OQI = "t_en";
+    var gFI = ''['concat'](HRI, ',')['concat'](TEI, ',')['concat'](OQI);
+    var pkI = wdI(input_tags);
+    var zkI = url['replace'](new (window['RegExp'])('\\\\|"','g'), '');
+    var VXI = ('')['concat'](0, ',')['concat'](Bq[2]);
+
     var EpI = Ut();
     var XpI = [
         {"tsd": 0},
@@ -354,16 +462,16 @@ function Akamai_cookie(bm_sz) {
         "fpc": "94",
         "ajr": H6I,
         "din": XpI,
-        "eem": "do_en,dm_en,t_en",
-        "ffs": "0,0,0,0,4875,113,0;0,-1,1,1,4823,1101,0;0,0,0,0,4901,113,0;0,-1,1,1,4732,1101,0;0,-1,1,1,4818,1101,0;0,0,0,0,4890,113,0;0,-1,1,1,4799,1101,0;0,0,0,0,4646,113,0;",
+        "eem": gFI,
+        "ffs": pkI,
         "vev": "",
-        "inf": "0,0,0,0,4875,113,0;0,-1,1,1,4823,1101,0;0,0,0,0,4901,113,0;0,-1,1,1,4732,1101,0;0,-1,1,1,4818,1101,0;0,0,0,0,4890,113,0;0,-1,1,1,4799,1101,0;0,0,0,0,4646,113,0;",
-        "ajt": "0,0",
+        "inf": pkI,
+        "ajt": VXI,
         "kev": "",
         "dme": "",
         "mev": "",
         "doe": "",
-        "pur": "https://www.dhl.com/cn-zh/home/tracking/tracking-supply-chain.html?submit=1&tracking-id=1232343",
+        "pur": zkI,
         "pev": "",
         "mst": wVI,
         "o9": 0,
@@ -404,5 +512,3 @@ function Akamai_cookie(bm_sz) {
     var WD = '{"sensor_data":'['concat'](UII, '}');
     return WD
 }
-
-console.log(Akamai_cookie(""))

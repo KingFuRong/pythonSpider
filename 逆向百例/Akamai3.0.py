@@ -1,5 +1,5 @@
 import re
-
+from bs4 import BeautifulSoup
 from curl_cffi import requests
 import execjs
 
@@ -15,7 +15,10 @@ url = "https://www.dhl.com/cn-zh/home/tracking/tracking-supply-chain.html"
 params = {"submit": "1", "tracking-id": "1232343"}
 session = requests.Session()
 response = session.get(url, headers=headers, params=params)
+page_url = response.url
 js_url = 'https://www.dhl.com' + re.search('type="text/javascript"  src="(.*?)">', response.text).group(1)
+soup = BeautifulSoup(response.text, 'html.parser')
+input_tags = [str(input_tag) for input_tag in soup.find_all('input')]
 print(js_url)
 
 # 2.get请求js链接
@@ -26,7 +29,7 @@ print(response, dict(response.cookies))
 # 3.post请求js链接
 with open("Akamai3.0.js", 'r', encoding='utf-8') as f:
     js_code = f.read()
-    data = execjs.compile(js_code).call("Akamai_cookie", bm_sz)
+    data = execjs.compile(js_code).call("Akamai_cookie", bm_sz, input_tags, page_url)
 
 print(data)
 response = session.post(url=js_url, headers=headers, data=data)
